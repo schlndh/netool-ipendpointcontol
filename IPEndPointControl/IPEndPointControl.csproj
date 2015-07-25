@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPAddressControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IPEndPointControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

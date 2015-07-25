@@ -1,4 +1,4 @@
-﻿namespace Netool.Windows.Forms.Controls
+﻿namespace Netool.Windows.Forms
 {
     partial class IPEndPointControl
     {
@@ -31,8 +31,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ipLabel = new System.Windows.Forms.Label();
             this.portLabel = new System.Windows.Forms.Label();
-            this.ipText = new System.Windows.Forms.TextBox();
             this.portText = new System.Windows.Forms.TextBox();
+            this.ipAddress = new Netool.Windows.Forms.IPAddressControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,8 +43,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.Controls.Add(this.ipLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.portLabel, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ipText, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.portText, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ipAddress, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -76,21 +76,23 @@
             this.portLabel.Text = "Port";
             this.portLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // ipText
-            // 
-            this.ipText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ipText.Location = new System.Drawing.Point(3, 23);
-            this.ipText.Name = "ipText";
-            this.ipText.Size = new System.Drawing.Size(316, 20);
-            this.ipText.TabIndex = 2;
-            // 
             // portText
             // 
             this.portText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.portText.Location = new System.Drawing.Point(325, 23);
             this.portText.Name = "portText";
             this.portText.Size = new System.Drawing.Size(44, 20);
-            this.portText.TabIndex = 3;
+            this.portText.TabIndex = 1;
+            // 
+            // ipAddress
+            // 
+            this.ipAddress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipAddress.IP = null;
+            this.ipAddress.Location = new System.Drawing.Point(3, 23);
+            this.ipAddress.Name = "ipAddress";
+            this.ipAddress.PreferedAddressFamily = Netool.Windows.Forms.IPAddressControl.PreferedFamily.None;
+            this.ipAddress.Size = new System.Drawing.Size(316, 20);
+            this.ipAddress.TabIndex = 0;
             // 
             // IPEndPointControl
             // 
@@ -110,8 +112,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label ipLabel;
         private System.Windows.Forms.Label portLabel;
-        private System.Windows.Forms.TextBox ipText;
         private System.Windows.Forms.TextBox portText;
+        private IPAddressControl ipAddress;
 
     }
 }

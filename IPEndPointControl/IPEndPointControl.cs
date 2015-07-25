@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Windows.Forms;
 
-namespace Netool.Windows.Forms.Controls
+namespace Netool.Windows.Forms
 {
     public partial class IPEndPointControl : UserControl
     {
-        public enum PreferedFamily
-        {
-            None, IPv4, IPv6
-        }
-
-        private PreferedFamily preferedFamily;
-
         /// <summary>
         /// Gets or sets prefered address family to return when user enters IP by hostname and DNS resolution returns multiple addresses
         /// </summary>
-        public PreferedFamily PreferedAddressFamily { get { return preferedFamily; } set { preferedFamily = value; } }
+        public IPAddressControl.PreferedFamily PreferedAddressFamily { get { return ipAddress.PreferedAddressFamily; } set { ipAddress.PreferedAddressFamily = value; } }
 
         public IPEndPoint EndPoint
         {
@@ -27,34 +18,14 @@ namespace Netool.Windows.Forms.Controls
                 try
                 {
                     int port = int.Parse(portText.Text);
-
                     if (port < 0 || port > 65535)
                     {
                         return null;
                     }
-                    IPAddress ip;
-
-                    if (!IPAddress.TryParse(ipText.Text, out ip) && !string.IsNullOrEmpty(ipText.Text))
+                    var ip = ipAddress.IP;
+                    if (ip == null)
                     {
-                        var entry = Dns.GetHostEntry(ipText.Text);
-                        if (entry.AddressList.Length == 0)
-                        {
-                            return null;
-                        }
-
-                        ip = entry.AddressList[0];
-                        if (entry.AddressList.Length > 1 && preferedFamily != PreferedFamily.None)
-                        {
-                            try
-                            {
-                                ip = entry.AddressList.First(addr =>
-                                (addr.AddressFamily == AddressFamily.InterNetwork && preferedFamily == PreferedFamily.IPv4)
-                                || (addr.AddressFamily == AddressFamily.InterNetworkV6 && preferedFamily == PreferedFamily.IPv6));
-                            }
-                            // no element is prefered
-                            catch (InvalidOperationException)
-                            { }
-                        }
+                        return null;
                     }
                     return new IPEndPoint(ip, port);
                 }
@@ -67,12 +38,12 @@ namespace Netool.Windows.Forms.Controls
             {
                 if (value == null)
                 {
-                    ipText.Text = "";
+                    ipAddress.IP = null;
                     portText.Text = "";
                 }
                 else
                 {
-                    ipText.Text = value.Address.ToString();
+                    ipAddress.IP = value.Address;
                     portText.Text = value.Port.ToString();
                 }
             }
@@ -84,10 +55,7 @@ namespace Netool.Windows.Forms.Controls
         public bool ShowLabels
         {
             get { return tableLayoutPanel1.RowStyles[0].Height > 0; }
-            set
-            {
-                tableLayoutPanel1.RowStyles[0].Height = value ? 20 : 0;
-            }
+            set { tableLayoutPanel1.RowStyles[0].Height = value ? 20 : 0; }
         }
 
         public IPEndPointControl()
@@ -103,7 +71,7 @@ namespace Netool.Windows.Forms.Controls
         /// <param name="port"></param>
         public void SetEndPointByHostName(string hostname, int port)
         {
-            ipText.Text = hostname;
+            ipAddress.Text = hostname;
             portText.Text = port.ToString();
         }
     }
