@@ -89,6 +89,7 @@
             this.ipAddress.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ipAddress.IP = null;
             this.ipAddress.Location = new System.Drawing.Point(3, 23);
+            this.ipAddress.MaxLength = 255;
             this.ipAddress.Name = "ipAddress";
             this.ipAddress.PreferedAddressFamily = Netool.Windows.Forms.IPAddressControl.PreferedFamily.None;
             this.ipAddress.Size = new System.Drawing.Size(316, 20);

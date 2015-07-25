@@ -1,4 +1,4 @@
-﻿using Netool.Windows.Forms.Controls;
+﻿using Netool.Windows.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -15,9 +15,9 @@ namespace IPEndPointControlExample
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (addrFamilyNone.Checked) ipEndPointControl1.PreferedAddressFamily = IPEndPointControl.PreferedFamily.None;
-            else if (addrFamilyIPv4.Checked) ipEndPointControl1.PreferedAddressFamily = IPEndPointControl.PreferedFamily.IPv4;
-            else ipEndPointControl1.PreferedAddressFamily = IPEndPointControl.PreferedFamily.IPv6;
+            if (addrFamilyNone.Checked) ipEndPointControl1.PreferedAddressFamily = IPAddressControl.PreferedFamily.None;
+            else if (addrFamilyIPv4.Checked) ipEndPointControl1.PreferedAddressFamily = IPAddressControl.PreferedFamily.IPv4;
+            else ipEndPointControl1.PreferedAddressFamily = IPAddressControl.PreferedFamily.IPv6;
             var ep = ipEndPointControl1.EndPoint;
             var str = ep == null ? "NULL" : ep.ToString();
             MessageBox.Show(str);

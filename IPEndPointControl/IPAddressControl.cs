@@ -28,7 +28,26 @@ namespace Netool.Windows.Forms
 
                 if (!IPAddress.TryParse(Text, out ip) && !string.IsNullOrEmpty(Text))
                 {
-                    var entry = Dns.GetHostEntry(Text);
+                    IPHostEntry entry;
+                    try
+                    {
+                        entry = Dns.GetHostEntry(Text);
+                    }
+                    catch(ArgumentOutOfRangeException)
+                    {
+                        // longer than 255 chars
+                        return null;
+                    }
+                    catch(ArgumentException)
+                    {
+                        // invalid IP address
+                        return null;
+                    }
+                    catch(SocketException)
+                    {
+                        // DNS resolution failed
+                        return null;
+                    }
                     if (entry.AddressList.Length == 0)
                     {
                         return null;
